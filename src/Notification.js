@@ -19,7 +19,6 @@ class Notification extends Component {
     };
 
     handleNotification = evt => {
-        console.log("evt.target.value:: ", evt.target.value)
         this.setState({ notification: evt.target.value });
     };
     handleNewNotification = evt =>{
@@ -28,7 +27,6 @@ class Notification extends Component {
     handleSubmit = async(evt) => {
         //call the post method to suspend student
     const { teacher,notification } = this.state;
-    console.log("notification ::", notification)
 
     let data = {teacher: teacher, notification : notification};
     await fetch('http://localhost:4000/api/retrievefornotifications', {
@@ -112,14 +110,14 @@ class Notification extends Component {
             (
             <div className = "studentsTable" style={{ display: "flex" , justifyContent: "center"}}>
             <div className = {styles.sentTo}> Sent to </div>
-            {chipData.map(data => {
-                    let icon;
+            {chipData.map((data,index) => {
+                    // let icon;
 
                     return (
                     <Chip
-                        key={data.id}
-                        icon={icon}
-                        label={data.receipents}
+                        key={index}
+                        // icon={icon}
+                        label={data}
                         // className={classes.chip}
                     />
                     );

@@ -121,7 +121,7 @@ handleSubmit = async(evt) => {
         <h4>Students</h4>
 
         {students.map((student, idx) => (
-          <div className="student">
+          <div className="student" key= {idx}>
             <input
                 className = {styles.inputText}
                 type="text"

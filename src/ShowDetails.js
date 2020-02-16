@@ -10,6 +10,7 @@ class ShowDetails extends Component {
       studentData: [],
       teachers: ['']
     };
+    this.renderMyData = this.renderMyData.bind(this);
   }
 
   handleTeacherEmailChange = idx => evt => {
@@ -34,7 +35,7 @@ class ShowDetails extends Component {
     });
   };
   renderMyData = async (evt) => {
-    let URL = 'http://localhost:4000/api/commonstudents/'
+    let URL = 'http://localhost:4000/api/commonstudents/';
     let { teachers } = this.state;
     let teacherLength = teachers.length;
     if (teacherLength > 0) {
@@ -54,7 +55,7 @@ class ShowDetails extends Component {
     await fetch(URL)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ studentData: responseJson })
+        this.setState({ studentData: responseJson.students })
       })
       .catch((error) => {
         console.error(error);
@@ -69,7 +70,7 @@ class ShowDetails extends Component {
         <h4>Teachers</h4>
         {teachers
           .map((teacher, idx) => (
-            <div className="student" >
+            <div className="student" key={idx} >
               <input
                 className = {styles.textArea}
                 type="text"
@@ -105,11 +106,10 @@ class ShowDetails extends Component {
                   </tr>
                 </thead>
                 <tbody>
-
-                  {studentData.map((row, index) => (
-                    <TableRow key={row.name}>
-                      <TableCell className={styles.tableArrangment} align="right">{index + 1}</TableCell>
-                      <TableCell className={styles.tableArrangment} align="right">{row.emailId}</TableCell>
+                    {studentData.map((row, index) => (
+                    <TableRow key={index + 1}>
+                      <TableCell key ={index + 1} className={styles.tableArrangment} align="right">{index + 1}</TableCell>
+                      <TableCell key ={index} className={styles.tableArrangment} align="right">{row}</TableCell>
                     </TableRow>
                   ))}
                 </tbody>
